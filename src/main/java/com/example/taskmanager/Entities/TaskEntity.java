@@ -2,22 +2,24 @@ package com.example.taskmanager.Entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity(name = "tasks")
 @Getter
 @Setter
 public class TaskEntity extends BaseEntity{
 
-    public TaskEntity(String title, String Desc, Boolean Comp, Date duedate)
+    public TaskEntity(String title, String Desc, Boolean Comp, Date update)
     {
         this.title = title;
         this.description = Desc;
         this.completed = Comp;
-        this.dueDate = duedate;
+        this.dueDate = update;
     }
 
     public TaskEntity()
@@ -36,4 +38,7 @@ public class TaskEntity extends BaseEntity{
 
     @Column(name="due_date", nullable = true)
     Date dueDate;
+
+    @OneToMany
+    List<NoteEntity> noteEntityList;
 }

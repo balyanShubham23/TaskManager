@@ -29,10 +29,10 @@ public class TasksService {
         return taskRepository.findAll();
     }
 
-    public Optional<TaskEntity> getTaskById(Integer id)
+    public TaskEntity getTaskById(Integer id)
     {
-        var task = taskRepository.findById(id);
-        if(!task.isPresent())
+        var task = taskRepository.findById(id).get();
+        if(task == null)
         {
             throw new TaskNotFoundException(id);
         }
@@ -42,5 +42,15 @@ public class TasksService {
     public void CreateTask(TaskEntity taskEntity)
     {
         taskRepository.save(taskEntity);
+    }
+
+    public Optional<TaskEntity> getTasksbyTitle(String title)
+    {
+        return taskRepository.findByTitle(title);
+    }
+
+    public List<TaskEntity> getTasksbyCompletedStatus(Boolean status)
+    {
+        return taskRepository.findAllByCompleted(status);
     }
 }

@@ -28,7 +28,7 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    ResponseEntity<Optional<TaskEntity>> GetTaskById(@PathVariable("id") Integer id)
+    ResponseEntity<TaskEntity> GetTaskById(@PathVariable("id") Integer id)
     {
         return ResponseEntity.ok(taskService.getTaskById(id));
     }
@@ -40,6 +40,17 @@ public class TaskController {
                 taskEntity.getCompleted(),taskEntity.getDueDate());
         taskService.CreateTask(newTask);
         return ResponseEntity.created(URI.create("/GetTaskById/"+newTask.getId())).body(newTask);
+    }
+
+    @GetMapping("/tasks/TasksByTitle")
+    ResponseEntity<Optional<TaskEntity>> getTasksbyTitle(@RequestParam(value = "title") String title)
+    {
+        return ResponseEntity.ok(taskService.getTasksbyTitle(title));
+    }
+    @GetMapping("/tasks/TasksByCompleted")
+    ResponseEntity<List<TaskEntity>> getTasksbyCompletedStatus(@RequestParam(value = "status") Boolean status)
+    {
+        return ResponseEntity.ok(taskService.getTasksbyCompletedStatus(status));
     }
 
     @ExceptionHandler(TasksService.TaskNotFoundException.class)
