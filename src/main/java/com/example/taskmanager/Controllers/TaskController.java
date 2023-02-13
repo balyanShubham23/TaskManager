@@ -28,9 +28,12 @@ public class TaskController {
     }
 
     @GetMapping("/tasks/{id}")
-    ResponseEntity<TaskEntity> GetTaskById(@PathVariable("id") Integer id)
+    ResponseEntity<TaskEntity> GetTaskById(@PathVariable("id") Integer id, @RequestHeader("my_number") Boolean check)
     {
+        if(check)
         return ResponseEntity.ok(taskService.getTaskById(id));
+        else
+            return ResponseEntity.ok(taskService.getTaskById(id));
     }
 
     @PostMapping("/tasks")

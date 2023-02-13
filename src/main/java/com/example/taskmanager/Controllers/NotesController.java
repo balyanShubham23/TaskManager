@@ -22,17 +22,17 @@ public class NotesController {
     }
 
     @GetMapping("/tasks/{id}/notes")
-    List<NoteEntity> findAllNotes(@PathVariable("id") Integer id)
+    ResponseEntity<List<NoteEntity>> findAllNotes(@PathVariable("id") Integer id)
     {
-        return notesService.findbytaskId(id);
+        return ResponseEntity.ok(notesService.findbytaskId(id));
     }
 
     @PostMapping("/tasks/{id}/notes")
-    NoteEntity addNote(@RequestBody NoteEntity noteEntity,@PathVariable("id") Integer id)
+    ResponseEntity<NoteEntity> addNote(@RequestBody NoteEntity noteEntity,@PathVariable("id") Integer id)
     {
         var Task = tasksService.getTaskById(id);
         var newNote = new NoteEntity(noteEntity.getBody());
         newNote.setTask(Task);
-        return notesService.addNote(newNote);
+        return ResponseEntity.ok(notesService.addNote(newNote));
     }
 }
