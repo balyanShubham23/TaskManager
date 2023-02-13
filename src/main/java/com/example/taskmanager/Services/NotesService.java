@@ -6,6 +6,7 @@ import com.example.taskmanager.repositories.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class NotesService {
@@ -24,5 +25,10 @@ public class NotesService {
     public NoteEntity addNote(NoteEntity  newNote)
     {
         return notesRepository.save(newNote);
+    }
+
+    public void deleteNode(Integer id)
+    {
+        notesRepository.deleteById(id);
     }
 }

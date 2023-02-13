@@ -1,5 +1,6 @@
 package com.example.taskmanager.Entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -39,6 +40,7 @@ public class TaskEntity extends BaseEntity{
     @Column(name="due_date", nullable = true)
     Date dueDate;
 
-    @OneToMany
+    @JsonManagedReference
+    @OneToMany(mappedBy = "task")
     List<NoteEntity> noteEntityList;
 }

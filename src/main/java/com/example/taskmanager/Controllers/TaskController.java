@@ -56,6 +56,12 @@ public class TaskController {
         return ResponseEntity.ok(taskService.getTasksbyCompletedStatus(status));
     }
 
+    @DeleteMapping ("/tasks/{id}")
+    ResponseEntity<TaskEntity> deleteTask(@PathVariable("id") Integer id)
+    {
+        return ResponseEntity.accepted().body(taskService.deleteTask(id));
+    }
+
     @ExceptionHandler(TasksService.TaskNotFoundException.class)
     ResponseEntity<ErrorResponse> handleErrors(TasksService.TaskNotFoundException ex)
     {
